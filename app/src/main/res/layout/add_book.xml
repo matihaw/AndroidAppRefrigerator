@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/DarkGray"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    tools:context=".MainActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Podaj dane produktu"
+        android:textAllCaps="true"
+        android:textSize="27dp"
+        android:textStyle="bold"
+        android:textColor="@color/SolidGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp"
+                android:background="@drawable/rounded_edge"
+                android:focusable="false"
+                android:focusedByDefault="false"
+                android:hint="Kod kreskdddddddddddddddowy"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/Gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton"
+                />
+
+            <EditText
+                android:textAlignment="center"
+                android:text=""
+                android:background="@drawable/rounded_edge"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="50dp"
+                android:id="@+id/editText2"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:inputType="textPersonName"
+                android:hint="Nazwa produktu"
+                android:textColor="@color/Gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+            <EditText
+                android:textAlignment="center"
+                android:text=""
+                android:id="@+id/editText3"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/rounded_edge"
+                android:inputType="number"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="5dp"
+                android:hint="Ilość sztuk"
+                android:textColor="@color/Gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText2"
+                />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edge"
+                android:layout_marginTop="36dp"
+                android:text="Dodaj produkt"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/rounded_edge"
+                android:src="@android:drawable/ic_menu_camera"
+                app:layout_constraintBottom_toTopOf="@+id/editText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                tools:src="@android:drawable/ic_menu_camera" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
