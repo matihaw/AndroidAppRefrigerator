@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/button2"
-        android:text="Dodaj ksiązkę"
+        android:text="Dodaj produkt"
 
         android:textColor="#181818"
         android:textSize="15dp"
@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/button3"
-        android:text="Usuń ksiązkę"
+        android:text="Usuń produkt"
 
         android:textColor="#181818"
         android:textSize="15dp"
