@@ -13,9 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.sql.*;
+
+
 public class AddProduct extends AppCompatActivity {
     Context context = this;
     protected ImageButton productPhoto;
+    Bitmap productImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +50,31 @@ public class AddProduct extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText productName = findViewById(R.id.editText2);
+                final EditText productName = findViewById(R.id.editText2);
                 String productNameText = productName.getText().toString();
-                EditText productAmount = findViewById(R.id.editText3);
+                final EditText productAmount = findViewById(R.id.editText3);
                 String productAmountText = productAmount.getText().toString();
-                System.out.println(productAmountText);
-                System.out.println(productNameText);
                 if(!productAmountText.equals("") && !productNameText.equals("")){
-                    Toast.makeText(context, "Kod kreskowy: " + barcodeFromExtras  + "\n nazwa produtu: "  + productNameText + "\n ilość: " + productAmountText, Toast.LENGTH_LONG).show();
+                    Thread thread = new Thread(new Runnable() {
+                       @Override
+                        public void run() {
+                            try  {
+                                Class.forName("com.mysql.jdbc.Driver");
+                                Connection con =DriverManager.getConnection("jdbc:mysql://192.168.0.66:3306/androidapp","root","root");
+                                Statement stmt=con.createStatement();
+                                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                                productImage.compress(Bitmap.CompressFormat.JPEG,100,bos);
+                                byte[] bArray = bos.toByteArray();
+                                Blob blob = null;
+                                blob.setBytes(bArray.length,bArray);
+                                stmt.executeUpdate("INSERT INTO `data`(`id_barcode`, `bitmapPhoto`, `name`, `amount`) VALUES (2,"+blob+",\"fghfg\",\"54\");");
+                                con.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    thread.start();
                 } else {
                     Toast.makeText(context,"Podaj wszystkie dane",Toast.LENGTH_LONG).show();
                 }
@@ -66,7 +88,7 @@ public class AddProduct extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
             if(resultCode ==  RESULT_OK){
-                Bitmap productImage = (Bitmap) data.getExtras().get("data");    ///camera gives bitmap photo file
+                productImage = (Bitmap) data.getExtras().get("data");    ///camera gives bitmap photo file
                 if(productPhoto!=null){
                     productPhoto.setImageBitmap(productImage);      ///put taken photo to image field
                 }

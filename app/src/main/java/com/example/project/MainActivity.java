@@ -14,7 +14,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
-    protected String[] permission = {Manifest.permission.CAMERA};
+    protected String[] permission = {Manifest.permission.CAMERA, Manifest.permission.INTERNET};
     protected Context context = this; ///context
     protected Activity activity = this;   ///activity
     public String barcode = "";    ///barcode from scanner
