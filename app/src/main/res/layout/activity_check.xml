@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/DarkGray"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="Yours products:"
+        android:textAllCaps="true"
+        android:textColor="@color/SolidGray"
+        android:textSize="27dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="230dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/DarkGray"
+            android:stretchColumns="*"
+            tools:context=".CheckActivity"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+
+            <TableRow
+                android:background="@drawable/table"
+
+                >
+
+                <EditText
+                    android:id="@+id/id"
+                    android:background="@drawable/table"
+                    android:padding="3dip"
+                    android:focusable="false"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/name"
+                    android:background="@drawable/table"
+                    android:focusable="false"
+                    android:padding="3dip"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/amount"
+                    android:background="@drawable/table"
+                    android:padding="3dip"
+                    android:focusable="false"
+                    android:textAlignment="center" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,11 +13,21 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     protected String[] permission = {Manifest.permission.CAMERA, Manifest.permission.INTERNET};
     protected Context context = this; ///context
     protected Activity activity = this;   ///activity
     public String barcode = "";    ///barcode from scanner
+
+    private List<String> barcodes = new ArrayList<>();
+    private List<String> name = new ArrayList<>();
+    private List<String> amount = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +35,48 @@ public class MainActivity extends AppCompatActivity {
         requestPermissions(permission, 1);
         setContentView(R.layout.activity_main);
 
+        Thread urlConnection = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
+                    URLConnection ucon = url.openConnection();
+                    InputStream stream = ucon.getInputStream();
+                    int i;
+                    int iterator = 1;
+                    StringBuilder sb = new StringBuilder();
+                    while ((i = stream.read()) != -1) {
+                        if(((char) i) != ',') {
+                            System.out.println(iterator);
+                            sb.append((char) i);
+                        } else {
+                            switch (iterator) {
+                                case 1:
+                                    barcodes.add(sb.toString());
+                                    sb.delete(0, sb.length());
+                                    iterator++;
+                                    break;
+                                case 2:
+                                    name.add(sb.toString());
+                                    sb.delete(0, sb.length());
+                                    iterator++;
+                                    break;
+                                case 3:
+                                    amount.add(sb.toString());
+                                    sb.delete(0, sb.length());
+                                    iterator = 1;
+                                    break;
+                            }
+                        }
+                    }
+                }catch (Exception e) {
+                    Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        urlConnection.start();
         Button button1 = findViewById(R.id.button2);
+        Button button2 = findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {   ///onclick button
@@ -37,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
                     barcodeScanner.initiateScan(); ///start scanning activity
                 }
             }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent showProduct = new Intent(context,CheckActivity.class);
+                showProduct.putStringArrayListExtra("barcodes", (ArrayList<String>) barcodes);
+                showProduct.putStringArrayListExtra("name" ,(ArrayList<String>) name);
+                showProduct.putStringArrayListExtra("amount", (ArrayList<String>) amount);
+                startActivity(showProduct);
+
+            }
+
         });
     }
 
