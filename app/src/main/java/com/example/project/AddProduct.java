@@ -12,21 +12,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
 
-
+/*
+    Adding data to database via api
+ */
 public class AddProduct extends AppCompatActivity {
     Context context = this;
     protected ImageButton productPhoto;
     Bitmap productImage;
+
+
+    /*
+    Start new activity
+
+     */
+    public void startActivity(Class<? extends Activity> T){
+        Intent intent = new Intent(this,T.getClass());
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +71,14 @@ public class AddProduct extends AppCompatActivity {
                 final String productAmountText = productAmount.getText().toString();
                 if(!productAmountText.equals("") && !productNameText.equals("")){
                     Thread thread = new Thread(new Runnable() {
+                        /*
+                        Insert data to api
+
+                         */
                        @Override
                         public void run() {
                             try  {
-                                URL url = new URL("http://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
+                                URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
                                 String urlParameters ="barcode="+barcodeFromExtras+"&name="+productNameText+"&amount=" + productAmountText;
                                 byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -82,6 +95,7 @@ public class AddProduct extends AppCompatActivity {
                         }
                     });
                     thread.start();
+                    startActivity(MainActivity.class);
                 } else {
                     Toast.makeText(context,"Podaj wszystkie dane",Toast.LENGTH_LONG).show();
                 }
@@ -90,6 +104,10 @@ public class AddProduct extends AppCompatActivity {
 
     }
 
+
+    /*
+    get data from result activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

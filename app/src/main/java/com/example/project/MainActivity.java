@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
+                    URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
                     URLConnection ucon = url.openConnection();
                     InputStream stream = ucon.getInputStream();
                     int i;
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         });
         urlConnection.start();
         Button button1 = findViewById(R.id.button2);
-        Button button2 = findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {   ///onclick button
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        Button button2 = findViewById(R.id.button);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
