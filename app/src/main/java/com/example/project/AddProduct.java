@@ -13,7 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 
@@ -51,24 +57,25 @@ public class AddProduct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText productName = findViewById(R.id.editText2);
-                String productNameText = productName.getText().toString();
+                final String productNameText = productName.getText().toString();
                 final EditText productAmount = findViewById(R.id.editText3);
-                String productAmountText = productAmount.getText().toString();
+                final String productAmountText = productAmount.getText().toString();
                 if(!productAmountText.equals("") && !productNameText.equals("")){
                     Thread thread = new Thread(new Runnable() {
                        @Override
                         public void run() {
                             try  {
-                                Class.forName("com.mysql.jdbc.Driver");
-                                Connection con =DriverManager.getConnection("jdbc:mysql://192.168.0.66:3306/androidapp","root","root");
-                                Statement stmt=con.createStatement();
-                                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                                productImage.compress(Bitmap.CompressFormat.JPEG,100,bos);
-                                byte[] bArray = bos.toByteArray();
-                                Blob blob = null;
-                                blob.setBytes(bArray.length,bArray);
-                                stmt.executeUpdate("INSERT INTO `data`(`id_barcode`, `bitmapPhoto`, `name`, `amount`) VALUES (2,"+blob+",\"fghfg\",\"54\");");
-                                con.close();
+                                URL url = new URL("http://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
+                                String urlParameters ="barcode="+barcodeFromExtras+"&name="+productNameText+"&amount=" + productAmountText;
+                                byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                                con.setDoOutput(true);
+                                con.setRequestMethod("POST");
+                                con.setRequestProperty("User-Agent", "Java client");
+                                con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                                wr.write(postData);
+                                new InputStreamReader(con.getInputStream());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
