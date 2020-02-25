@@ -1,32 +1,33 @@
 package com.example.project;
 
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
+        import android.app.Activity;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageView;
+        import android.widget.Toast;
 
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+        import java.io.DataOutputStream;
+        import java.io.InputStream;
+        import java.io.InputStreamReader;
+        import java.net.HttpURLConnection;
+        import java.net.URL;
+        import java.net.URLConnection;
+        import java.nio.charset.StandardCharsets;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class CheckActivity extends AppCompatActivity {
     private Context context = this;
     EditText et;
-    public void startActivity(Class<? extends Activity> T){
-        Intent intent = new Intent(this,T.getClass());
+
+    public void startNewActivity(Class<? extends Activity> T){
+        Intent intent = new Intent(context,T);
         startActivity(intent);
     }
 
@@ -64,31 +65,65 @@ public class CheckActivity extends AppCompatActivity {
                 }else{
                     et = findViewById(R.id.idToDelete);
                     Thread deleteData = new Thread(new Runnable() {
+                        /*
+                        Insert data to api
+
+                         */
                         @Override
                         public void run() {
-                            try {
-                                URL url = new URL("https://www.example.com/resource");
-                                String urlParameters = "id=" + et.getText().toString();
-                                byte[] deleteData = urlParameters.getBytes(StandardCharsets.UTF_8);
-                                HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-                                httpCon.setDoOutput(true);
-                                httpCon.setRequestMethod("DELETE");
-                                httpCon.setRequestProperty("User-Agent", "Java client");
-                                httpCon.setRequestProperty(
-                                        "Content-Type", "application/x-www-form-urlencoded");
-                                DataOutputStream wr = new DataOutputStream(httpCon.getOutputStream());
-                                wr.write(deleteData);
-                                new InputStreamReader(httpCon.getInputStream());
-                            }catch (Exception e){
-                                Toast.makeText(context,"Error: " + e.toString(), Toast.LENGTH_LONG);
+                            try  {
+                                URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Delete");
+                                String urlParameters ="id=" + et.getText();
+                                byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                                con.setDoOutput(true);
+                                con.setRequestMethod("POST");
+                                con.setRequestProperty("User-Agent", "Java client");
+                                con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                                wr.write(postData);
+                                new InputStreamReader(con.getInputStream());
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     });
                     deleteData.start();
-                    startActivity(MainActivity.class);
+                    startNewActivity(MainActivity.class);
                 }
             }
         });
+        Button buttonDeleteAll = findViewById(R.id.buttonDeleteAll);
+        buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread deleteData = new Thread(new Runnable() {
+                    /*
+                    Insert data to api
 
+                     */
+                    @Override
+                    public void run() {
+                        try  {
+                            URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Delete");
+                            String urlParameters ="id=deleteallfilesdata";
+                            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                            con.setDoOutput(true);
+                            con.setRequestMethod("POST");
+                            con.setRequestProperty("User-Agent", "Java client");
+                            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                            wr.write(postData);
+                            new InputStreamReader(con.getInputStream());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                deleteData.start();
+                startNewActivity(MainActivity.class);
+            }
+        });
     }
 }
