@@ -106,15 +106,11 @@ public class CheckActivity extends AppCompatActivity {
                     public void run() {
                         try  {
                             URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Delete");
-                            String urlParameters ="id=deleteallfilesdata";
-                            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                             HttpURLConnection con = (HttpURLConnection) url.openConnection();
                             con.setDoOutput(true);
-                            con.setRequestMethod("POST");
+                            con.setRequestMethod("DELETE");
                             con.setRequestProperty("User-Agent", "Java client");
                             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                            wr.write(postData);
                             new InputStreamReader(con.getInputStream());
                         } catch (Exception e) {
                             e.printStackTrace();
