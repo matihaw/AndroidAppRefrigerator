@@ -20,7 +20,9 @@ package com.example.project;
         import java.net.URLConnection;
         import java.nio.charset.StandardCharsets;
         import java.util.ArrayList;
+        import java.util.Arrays;
         import java.util.List;
+        import java.util.Random;
 
 public class CheckActivity extends AppCompatActivity {
     private Context context = this;
@@ -61,7 +63,7 @@ public class CheckActivity extends AppCompatActivity {
             public void onClick(View v) {
                 et = findViewById(R.id.idToDelete);
                 if(et.getText().toString().equals(null)){
-                    Toast.makeText(context, "Give important data", Toast.LENGTH_LONG);
+                    Toast.makeText(context, "Give important data", Toast.LENGTH_LONG).show();
                 }else{
                     et = findViewById(R.id.idToDelete);
                     Thread deleteData = new Thread(new Runnable() {
@@ -118,6 +120,48 @@ public class CheckActivity extends AppCompatActivity {
                     }
                 });
                 deleteData.start();
+                try{
+                    deleteData.join();
+                }catch (Exception e) {
+                    Toast.makeText(context,"Error" + e,Toast.LENGTH_LONG).show();
+                }
+                startNewActivity(MainActivity.class);
+            }
+        });
+        Button buttonAddRandomValues = findViewById(R.id.buttonAddRandomValues);
+        buttonAddRandomValues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread addRandom = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try  {
+                            URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
+                            List<String> productName = Arrays.asList("bread","milk","watcher","coffee","cheese","juice","apple","ham","beer","butter");
+                            for(int barcode=1; barcode<=10;barcode++) {
+                                Random randomGenerator = new Random(10);
+                                String urlParameters = "barcode=" + barcode + "&name=" + productName.get(barcode-1) + "&amount=" + (int)(Math.random()* (10)+1);
+                                byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                                con.setDoOutput(true);
+                                con.setRequestMethod("POST");
+                                con.setRequestProperty("User-Agent", "Java client");
+                                con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                                wr.write(postData);
+                                new InputStreamReader(con.getInputStream());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                addRandom.start();
+                try{
+                    addRandom.join();
+                }catch (Exception e) {
+                    Toast.makeText(context,"Error" + e,Toast.LENGTH_LONG).show();
+                }
                 startNewActivity(MainActivity.class);
             }
         });

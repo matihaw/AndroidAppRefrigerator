@@ -32,7 +32,7 @@ public class AddProduct extends AppCompatActivity {
 
      */
     public void startActivity(Class<? extends Activity> T){
-        Intent intent = new Intent(this,T.getClass());
+        Intent intent = new Intent(this,T);
         startActivity(intent);
     }
 
@@ -95,6 +95,11 @@ public class AddProduct extends AppCompatActivity {
                         }
                     });
                     thread.start();
+                    try{
+                        thread.join();
+                    }catch (Exception e) {
+                        Toast.makeText(context,"Error" + e,Toast.LENGTH_LONG).show();
+                    }
                     startActivity(MainActivity.class);
                 } else {
                     Toast.makeText(context,"Podaj wszystkie dane",Toast.LENGTH_LONG).show();
