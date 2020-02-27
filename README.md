@@ -5,6 +5,7 @@
     
 ## API
 	In rep ther is an api package which must be placet on java application server.
+	in 'connection' variable data must be replacet with parameters to connect to MYSQL database
 	
 ## Sponsored by
 
