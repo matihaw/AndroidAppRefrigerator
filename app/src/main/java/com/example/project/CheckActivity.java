@@ -74,7 +74,7 @@ public class CheckActivity extends AppCompatActivity {
                 /*
                     Check if barcode_id is given from user
                  */
-                if(et.getText().toString().equals(null)){
+                if(et.getText().toString().equals("")){
                     Toast.makeText(context, "Give important data", Toast.LENGTH_LONG).show();
                 }else{
                     et = findViewById(R.id.idToDelete);
@@ -103,6 +103,12 @@ public class CheckActivity extends AppCompatActivity {
                         }
                     });
                     deleteData.start();
+                    try{
+                        deleteData.join();
+                    }catch (Exception e){
+                        Toast.makeText(context,"Error: " + e.toString(),Toast.LENGTH_LONG ).show();
+                    }
+
                     startNewActivity(MainActivity.class, userId);
                 }
             }
@@ -124,7 +130,7 @@ public class CheckActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try  {
-                            URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Delete");
+                            URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Delete?id=" + userId);
                             HttpURLConnection con = (HttpURLConnection) url.openConnection();
                             con.setDoOutput(true);
                             con.setRequestMethod("DELETE");

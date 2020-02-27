@@ -23,11 +23,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class AddProduct extends AppCompatActivity {
     private Context context = this;
-    protected ImageButton productPhoto;
     /*
+
         APPLICATION VERSION FINAL2.0
         private Bitmap productImage;
-
+        private ImageButton productPhoto;
     */
     /*
     Start new activity
@@ -52,17 +52,22 @@ public class AddProduct extends AppCompatActivity {
             barcode.setText("Kod: " + barcodeFromExtras); /// set barcode from extras to text field
         }
         final String userId = extras.getString("id");
-        productPhoto = findViewById(R.id.imageButton);
-        productPhoto.setOnClickListener(new View.OnClickListener() {
+        /*
+                     APPLICATION VERSION FINAL2.0
 
-            @Override
-            public void onClick(View v) {
-                Intent takePhotoOfProduct = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                setResult(Activity.RESULT_OK,takePhotoOfProduct);
-                startActivityForResult(takePhotoOfProduct, 1);  //start activity for result to get an photo of product
+            productPhoto = findViewById(R.id.imageButton);
+            productPhoto.setOnClickListener(new View.OnClickListener() {
 
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    Intent takePhotoOfProduct = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    setResult(Activity.RESULT_OK,takePhotoOfProduct);
+                    startActivityForResult(takePhotoOfProduct, 1);  //start activity for result to get an photo of product
+
+                }
+            });
+        */
+
         Button submitButton = findViewById(R.id.button4);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override

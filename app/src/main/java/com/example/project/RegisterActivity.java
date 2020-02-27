@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                 /*
                     Check if important data is given
                  */
-                if(username.equals(null) || password.equals(null)){
+                if(username.equals("") || password.equals("")){
                     Toast.makeText(context,"Give all data",Toast.LENGTH_LONG).show();
                 }else{
                     /*

@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 final String username = et1.getText().toString();
                 EditText et2 = findViewById(R.id.editText5);
                 final String password = et2.getText().toString();
-                if(username.equals(null) || password.equals(null)){
+                if(username.equals("") || password.equals("")){
                     Toast.makeText(context, "Give all data", Toast.LENGTH_LONG).show();
                 }else {
                     Thread thread = new Thread(new Runnable() {
@@ -96,6 +96,16 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 }
+            }
+        });
+        /*
+            Start register activity
+         */
+        Button buttonCreateAccount = findViewById(R.id.buttonCreateNewAccount);
+        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(RegisterActivity.class);
             }
         });
     }

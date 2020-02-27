@@ -72,10 +72,12 @@
         android:id="@+id/buttonCreateNewAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create new account"
         android:background="@drawable/rounded_edge"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="132dp" />
+        android:text="Create new account"
+        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
