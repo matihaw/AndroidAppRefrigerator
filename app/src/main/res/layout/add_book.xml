@@ -35,7 +35,7 @@
                 android:id="@+id/editText"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="72dp"
+                android:layout_marginTop="128dp"
                 android:background="@drawable/rounded_edge"
                 android:focusable="false"
                 android:focusedByDefault="false"
@@ -46,10 +46,9 @@
                 android:textAlignment="center"
                 android:textColor="@color/Gray"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <EditText
                 android:textAlignment="center"
@@ -99,7 +98,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
-            <ImageButton
+            <!--
+
+                PRODUCT IMAGE WILL BE ADDED IN NEXT VERSION OF APPLICATION - FINAL2.0
+
+                <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +114,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 tools:src="@android:drawable/ic_menu_camera" />
+            -->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

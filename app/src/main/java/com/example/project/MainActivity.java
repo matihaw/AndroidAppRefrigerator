@@ -1,5 +1,4 @@
 package com.example.project;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.Activity;
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -20,26 +18,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    protected String[] permission = {Manifest.permission.CAMERA, Manifest.permission.INTERNET};
-    protected Context context = this; ///context
-    protected Activity activity = this;   ///activity
-    public String barcode = "";    ///barcode from scanner
-
+    private String[] permission = {Manifest.permission.CAMERA, Manifest.permission.INTERNET};
+    private Context context = this; ///context
+    private Activity activity = this;   ///activity
+    private String barcode = "";    ///barcode from scanner
     private List<String> barcodes = new ArrayList<>();
     private List<String> name = new ArrayList<>();
     private List<String> amount = new ArrayList<>();
+    private String userId = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        userId = getIntent().getStringExtra("id");
         super.onCreate(savedInstanceState);
         requestPermissions(permission, 1);
         setContentView(R.layout.activity_main);
-
+        /*
+            Get data from db via api
+         */
         Thread urlConnection = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
+                    URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello?id=" + userId);
                     URLConnection ucon = url.openConnection();
                     InputStream stream = ucon.getInputStream();
                     int i;
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     IntentIntegrator barcodeScanner = new IntentIntegrator(activity); ///set new activity
                     barcodeScanner.setBeepEnabled(true); ///enable sound on scan
                     barcodeScanner.setOrientationLocked(false); ///unlock rotating
+                    barcodeScanner.addExtra("id", userId);
                     barcodeScanner.setCaptureActivity(CaptureActivityPortrait.class); ///rotated to portrait
                     barcodeScanner.initiateScan(); ///start scanning activity
                 }
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 showProduct.putStringArrayListExtra("barcodes", (ArrayList<String>) barcodes);
                 showProduct.putStringArrayListExtra("name" ,(ArrayList<String>) name);
                 showProduct.putStringArrayListExtra("amount", (ArrayList<String>) amount);
+                showProduct.putExtra("id", userId);
                 startActivity(showProduct);
 
             }
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Skan kodu zakończony pomyślnie", Toast.LENGTH_LONG).show();
                 Intent addProduct = new Intent(context, AddProduct.class);
                 addProduct.putExtra("barcode", barcode);    ///scanned barcode as extras
+                addProduct.putExtra("id", userId);
                 startActivity(addProduct);      ///start activity in AddProduct.class
             } else {
                 Toast.makeText(context, "Skan kodu zakończony niepowodzeniem", Toast.LENGTH_SHORT).show();

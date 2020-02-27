@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/DarkGray"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/editText55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -22,14 +22,14 @@
         android:hint="Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/editText44" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Login to your account"
+        android:text="Create new account"
         android:textAllCaps="true"
         android:textSize="27dp"
         android:textStyle="bold"
@@ -39,21 +39,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:background="@drawable/rounded_edge"
-        android:text="Login"
+        android:text="Register"
         android:textColor="#181818"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/editText55" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editText44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
@@ -67,15 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/buttonCreateNewAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create new account"
-        android:background="@drawable/rounded_edge"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="132dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,9 +27,14 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     protected Context context = this; ///context
-    char response;
-    public void startActivity(Class<? extends Activity> T){
+    private char response;
+    public void startNewActivity(Class<? extends Activity> T){
         Intent intent = new Intent(this,T);
+        startActivity(intent);
+    }
+    public void startNewActivity(Class<? extends Activity> T, String extras){
+        Intent intent = new Intent(context,T);
+        intent.putExtra("id",extras);
         startActivity(intent);
     }
 
@@ -84,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(context,"Podales bledne dane logowania" , Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(context,"Logowanie poprawne", Toast.LENGTH_LONG).show();
-                            startActivity(MainActivity.class);
+                            startNewActivity(MainActivity.class, Character.toString(response));
                         }
                     }catch (Exception e){
                            Toast.makeText(context,"Error: " + e, Toast.LENGTH_LONG).show();

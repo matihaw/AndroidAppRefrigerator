@@ -22,20 +22,22 @@ import java.nio.charset.StandardCharsets;
     Adding data to database via api
  */
 public class AddProduct extends AppCompatActivity {
-    Context context = this;
+    private Context context = this;
     protected ImageButton productPhoto;
-    Bitmap productImage;
+    /*
+        APPLICATION VERSION FINAL2.0
+        private Bitmap productImage;
 
-
+    */
     /*
     Start new activity
 
      */
-    public void startActivity(Class<? extends Activity> T){
-        Intent intent = new Intent(this,T);
+    public void startNewActivity(Class<? extends Activity> T, String extras){
+        Intent intent = new Intent(context,T);
+        intent.putExtra("id",extras);
         startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class AddProduct extends AppCompatActivity {
         if (barcodeFromExtras != null) {
             barcode.setText("Kod: " + barcodeFromExtras); /// set barcode from extras to text field
         }
-
+        final String userId = extras.getString("id");
         productPhoto = findViewById(R.id.imageButton);
         productPhoto.setOnClickListener(new View.OnClickListener() {
 
@@ -65,6 +67,7 @@ public class AddProduct extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ///input parameters
                 final EditText productName = findViewById(R.id.editText2);
                 final String productNameText = productName.getText().toString();
                 final EditText productAmount = findViewById(R.id.editText3);
@@ -72,14 +75,13 @@ public class AddProduct extends AppCompatActivity {
                 if(!productAmountText.equals("") && !productNameText.equals("")){
                     Thread thread = new Thread(new Runnable() {
                         /*
-                        Insert data to api
-
+                        Insert data via api
                          */
                        @Override
                         public void run() {
                             try  {
                                 URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
-                                String urlParameters ="barcode="+barcodeFromExtras+"&name="+productNameText+"&amount=" + productAmountText;
+                                String urlParameters = "barcode=" + barcodeFromExtras + "&name=" + productNameText + "&amount=" + productAmountText + "&id=" + userId;
                                 byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                                 con.setDoOutput(true);
@@ -96,11 +98,11 @@ public class AddProduct extends AppCompatActivity {
                     });
                     thread.start();
                     try{
-                        thread.join();
+                        thread.join(); /// wait untill uploading data is finished
                     }catch (Exception e) {
                         Toast.makeText(context,"Error" + e,Toast.LENGTH_LONG).show();
                     }
-                    startActivity(MainActivity.class);
+                    startNewActivity(MainActivity.class, userId);
                 } else {
                     Toast.makeText(context,"Podaj wszystkie dane",Toast.LENGTH_LONG).show();
                 }
@@ -112,7 +114,7 @@ public class AddProduct extends AppCompatActivity {
 
     /*
     get data from result activity
-     */
+     NEED TO FINISH ADDING PRODUCT PHOTO IN VERSION FINAL2.0 OF APPLICATION
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -124,5 +126,5 @@ public class AddProduct extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 }
