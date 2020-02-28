@@ -168,7 +168,7 @@ public class CheckActivity extends AppCompatActivity {
                             List<String> productName = Arrays.asList("bread","milk","watcher","coffee","cheese","juice","apple","ham","beer","butter");
                             for(int barcode=1; barcode<=10;barcode++) {
                                 Random randomGenerator = new Random(10);
-                                String urlParameters = "barcode=" + barcode + "&name=" + productName.get(barcode-1) + "&amount=" + (int)(Math.random()* (10)+1) + "&id=" + userId;
+                                String urlParameters = "barcode=" + barcode*Integer.valueOf(userId) + "&name=" + productName.get(barcode-1) + "&amount=" + (int)(Math.random()* (10)+1) + "&id=" + userId;
                                 byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                                 con.setDoOutput(true);
