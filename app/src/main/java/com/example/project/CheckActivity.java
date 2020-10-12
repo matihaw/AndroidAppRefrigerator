@@ -167,8 +167,9 @@ public class CheckActivity extends AppCompatActivity {
                             URL url = new URL("https://matihaw17.ct8.pl/examples/servlets/servlet/Hello");
                             List<String> productName = Arrays.asList("bread","milk","water","coffee","cheese","juice","apple","ham","beer","butter");
                             for(int barcode=1; barcode<=10;barcode++) {
-                                Random randomGenerator = new Random(10);
-                                String urlParameters = "barcode=" + barcode*Integer.valueOf(userId) + "&name=" + productName.get(barcode-1) + "&amount=" + (int)(Math.random()* (10)+1) + "&id=" + userId;
+                                Random randomGenerator = new Random();
+                                ///String urlParameters = "barcode=" + barcode*Integer.valueOf(userId) + "&name=" + productName.get(barcode-1) + "&amount=" + (int)(Math.random()* (10)+1) + "&id=" + userId;
+                                String urlParameters = "barcode=" + randomGenerator.nextInt(500000000) + "&name=" + productName.get(barcode-1) + "&amount=" + (int)(Math.random()* (10)+1) + "&id=" + userId;
                                 byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                                 con.setDoOutput(true);
