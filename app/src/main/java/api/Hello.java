@@ -15,7 +15,7 @@ public class Hello extends HttpServlet{
     PrintWriter pw = resp.getWriter();
       try {
         Class.forName("com.mysql.jdbc.Driver");
-          Connection connection = DriverManager.getConnection("jdbc:mysql://mysql.ct8.pl/m12094_fridgeApp","m12094_root","Starwars17");
+          Connection connection = DriverManager.getConnection("jdbc:mysql://mysql.ct8.pl/m12094_fridgeApp","m12094_root","PASSWORD");
 
         //String blobToString;
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Product WHERE user_id LIKE ? ");
